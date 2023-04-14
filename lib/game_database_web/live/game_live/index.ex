@@ -3,6 +3,8 @@ defmodule GameDatabaseWeb.GameLive.Index do
 
   alias GameDatabase.Entrys
   alias GameDatabase.Entrys.Game
+  alias GameDatabase.Entrys.OperatingSystem
+  alias GameDatabase.Entrys.Brand
 
   @impl true
   def mount(_params, _session, socket) do
@@ -24,6 +26,7 @@ defmodule GameDatabaseWeb.GameLive.Index do
     socket
     |> assign(:page_title, "New Game")
     |> assign(:game, %Game{})
+    |> assign(:operating_systems, Entrys.list_operating_systems())
   end
 
   defp apply_action(socket, :index, _params) do

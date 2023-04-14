@@ -31,7 +31,7 @@ defmodule GameDatabaseWeb.Router do
     live "/operating_systems/:id", OperatingSystemLive.Show, :show
     live "/operating_systems/:id/show/edit", OperatingSystemLive.Show
 
-    # live "/games", GameLive.Index, :index
+    live "/games", GameLive.Index, :index
     live "/games/new", GameLive.Index, :new
     live "/games/:id/edit", GameLive.Index, :edit
 

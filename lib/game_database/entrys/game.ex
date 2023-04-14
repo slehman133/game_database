@@ -16,7 +16,7 @@ defmodule GameDatabase.Entrys.Game do
   @doc false
   def changeset(game, attrs) do
     game
-    |> cast(attrs, [:name, :description, :primary_os_id])
-    |> validate_required([:name, :description, :primary_os_id])
+    |> cast(attrs, [:name, :description, :primary_os_id, :brand_id])
+    |> validate_required([:name, :description, :primary_os_id, :brand_id])
   end
 end

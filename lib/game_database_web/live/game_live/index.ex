@@ -30,6 +30,7 @@ defmodule GameDatabaseWeb.GameLive.Index do
     |> assign(:page_title, "New Game")
     |> assign(:game, %Game{})
     |> assign(:operating_systems, Entrys.list_operating_systems())
+    |> assign(:brands, Entrys.list_brands())
   end
 
   defp apply_action(socket, :index, _params) do
@@ -40,7 +41,10 @@ defmodule GameDatabaseWeb.GameLive.Index do
 
   @impl true
   def handle_info({GameDatabaseWeb.GameLive.FormComponent, {:saved, game}}, socket) do
-    {:noreply, stream_insert(socket, :games, game)}
+    {:noreply, stream_insert(socket, :games, game
+    |>Repo.preload(:primary_os, force: true)
+    |>Repo.preload(:brand, force: true))
+  }
   end
 
   @impl true

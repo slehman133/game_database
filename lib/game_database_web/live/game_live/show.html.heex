@@ -11,6 +11,8 @@
 <.list>
   <:item title="Name"><%= @game.name %></:item>
   <:item title="Description"><%= @game.description %></:item>
+  <:item title="Primary Opertating System"><%= @game.primary_os.name %></:item>
+  <:item title="Description"><%= @game.brand.name%></:item>
 </.list>
 
 <.back navigate={~p"/games"}>Back to games</.back>
@@ -22,6 +24,8 @@
     title={@page_title}
     action={@live_action}
     game={@game}
+    brands={@brands}
+    operating_systems={@operating_systems}
     patch={~p"/games/#{@game}"}
   />
 </.modal>

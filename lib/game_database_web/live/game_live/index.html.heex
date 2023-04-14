@@ -14,6 +14,8 @@
 >
   <:col :let={{_id, game}} label="Name"><%= game.name %></:col>
   <:col :let={{_id, game}} label="Description"><%= game.description %></:col>
+  <:col :let={{_id, game}} label="Operating System"><%= game.primary_os.name %></:col>
+  <:col :let={{_id, game}} label="Brand"><%= game.brand.name %></:col>
   <:action :let={{_id, game}}>
     <div class="sr-only">
       <.link navigate={~p"/games/#{game}"}>Show</.link>
@@ -38,6 +40,7 @@
     action={@live_action}
     game={@game}
     patch={~p"/games"}
+    brands={@brands}
     operating_systems={@operating_systems}
   />
 </.modal>

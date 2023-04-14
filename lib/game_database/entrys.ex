@@ -127,7 +127,7 @@ defmodule GameDatabase.Entrys do
 
   ## Examples
 
-      iex> list_operating_systems()
+  iex> list_operating_systems()
       [%OperatingSystem{}, ...]
 
   """
@@ -148,7 +148,7 @@ defmodule GameDatabase.Entrys do
       iex> get_operating_system!(456)
       ** (Ecto.NoResultsError)
 
-  """
+      """
   def get_operating_system!(id), do: Repo.get!(OperatingSystem, id)
 
   @doc """
@@ -229,6 +229,8 @@ defmodule GameDatabase.Entrys do
   """
   def list_games do
     Repo.all(Game)
+    |> Repo.preload(:primary_os)
+    |> Repo.preload(:brand)
   end
 
   @doc """
@@ -238,14 +240,16 @@ defmodule GameDatabase.Entrys do
 
   ## Examples
 
-      iex> get_game!(123)
-      %Game{}
+  iex> get_game!(123)
+  %Game{}
 
-      iex> get_game!(456)
-      ** (Ecto.NoResultsError)
+  iex> get_game!(456)
+  ** (Ecto.NoResultsError)
 
   """
   def get_game!(id), do: Repo.get!(Game, id)
+  |> Repo.preload(:primary_os)
+  |> Repo.preload(:brand)
 
   @doc """
   Creates a game.

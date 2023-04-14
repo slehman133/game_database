@@ -21,6 +21,7 @@ defmodule GameDatabaseWeb.GameLive.FormComponent do
       >
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:description]} type="text" label="Description" />
+        <.input field={@form[:primary_os_id]} type="select" options={@operating_systems} label="Description" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Game</.button>
         </:actions>

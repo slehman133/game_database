@@ -2,14 +2,32 @@ defmodule GameDatabase.Entrys do
   @moduledoc """
   The Entrys context.
   """
-
   import Ecto.Query, warn: false
   alias GameDatabase.Repo
 
   alias GameDatabase.Entrys.Brand
+  alias GameDatabase.Entry.Game
+  alias GameDataBase.Entry.Operating_System
 
+  def subscribe() do
+    IO.puts("Subscribing to game channel")
+    Phoenix.PubSub.subscribe(GameDatabase.Pubsub, "games")
+  end
+
+  def broadcast({:ok, game}, tag) do
+    Phoenix.PubSub.broadcast(
+      Game_Database.PubSub,
+      "games",
+      {tag, game}
+
+    )
+    {:ok, game}
+  end
+
+  def broadcast({:error, _changeset} = error, _tag), do: error
   @doc """
   Returns the list of brands.
+
 
   ## Examples
 
@@ -245,6 +263,7 @@ defmodule GameDatabase.Entrys do
     %Game{}
     |> Game.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:game_created)
   end
 
   @doc """
@@ -263,6 +282,7 @@ defmodule GameDatabase.Entrys do
     game
     |> Game.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:game_updated)
   end
 
   @doc """
@@ -279,6 +299,7 @@ defmodule GameDatabase.Entrys do
   """
   def delete_game(%Game{} = game) do
     Repo.delete(game)
+    |> broadcast(:game_deleted)
   end
 
   @doc """

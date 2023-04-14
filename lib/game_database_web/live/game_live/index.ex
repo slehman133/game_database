@@ -8,6 +8,9 @@ defmodule GameDatabaseWeb.GameLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Entrys.subscribe()
+    end
     {:ok, stream(socket, :games, Entrys.list_games())}
   end
 
@@ -38,6 +41,24 @@ defmodule GameDatabaseWeb.GameLive.Index do
   @impl true
   def handle_info({GameDatabaseWeb.GameLive.FormComponent, {:saved, game}}, socket) do
     {:noreply, stream_insert(socket, :games, game)}
+  end
+
+  @impl true
+  def handle_info({:game_created, game}, socket) do
+    IO.puts "Adding a game that was saved from PubSub"
+    {:noreply, stream_insert(socket, :games, game)}
+  end
+
+  @impl true
+  def handle_info({:game_updated, game}, socket) do
+    IO.puts "Game updated via PubSub"
+    {:noreply, stream_insert(socket, :games, game)}
+  end
+
+  @impl true
+  def handle_info({:game_deleted, game}, socket) do
+    IO.puts "Game deletde via PubSub"
+    {:noreply, stream_delete(socket, :games, game)}
   end
 
   @impl true

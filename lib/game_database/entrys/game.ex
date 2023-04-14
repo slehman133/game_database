@@ -7,7 +7,7 @@ defmodule GameDatabase.Entrys.Game do
   schema "games" do
     field :description, :string
     field :name, :string
-    belongs_to :operating_system, OperatingSystem
+    belongs_to :primary_os, OperatingSystem
     belongs_to :brand, Brand
 
     timestamps()
@@ -16,7 +16,7 @@ defmodule GameDatabase.Entrys.Game do
   @doc false
   def changeset(game, attrs) do
     game
-    |> cast(attrs, [:name, :description, :operating_system_id])
-    |> validate_required([:name, :description, :operating_system_id])
+    |> cast(attrs, [:name, :description, :primary_os_id])
+    |> validate_required([:name, :description, :primary_os_id])
   end
 end

@@ -1,0 +1,13 @@
+Game:
+    name:string
+    description:string
+    primary_os:references Operating_System
+    brand:references:Brand
+
+Operating_System:
+    name:string
+    maker:string
+
+Brand:
+    name:string
+    

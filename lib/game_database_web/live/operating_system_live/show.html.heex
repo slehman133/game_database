@@ -1,0 +1,27 @@
+<.header>
+  Operating system <%= @operating_system.id %>
+  <:subtitle>This is a operating_system record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/operating_systems/#{@operating_system}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit operating_system</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @operating_system.name %></:item>
+  <:item title="Maker"><%= @operating_system.maker %></:item>
+</.list>
+
+<.back navigate={~p"/operating_systems"}>Back to operating_systems</.back>
+
+<.modal :if={@live_action == :edit} id="operating_system-modal" show on_cancel={JS.patch(~p"/operating_systems/#{@operating_system}")}>
+  <.live_component
+    module={GameDatabaseWeb.OperatingSystemLive.FormComponent}
+    id={@operating_system.id}
+    title={@page_title}
+    action={@live_action}
+    operating_system={@operating_system}
+    patch={~p"/operating_systems/#{@operating_system}"}
+  />
+</.modal>

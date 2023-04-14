@@ -97,7 +97,7 @@ defmodule GameDatabase.Entrys do
       iex> change_brand(brand)
       %Ecto.Changeset{data: %Brand{}}
 
-      """
+  """
   def change_brand(%Brand{} = brand, attrs \\ %{}) do
     Brand.changeset(brand, attrs)
   end
